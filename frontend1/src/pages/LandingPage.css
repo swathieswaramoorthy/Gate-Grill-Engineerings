@@ -1,0 +1,46 @@
+.landing-container {
+    border: 1px solid #ccc; /* Reduce border size */
+    border-radius: 5px; /* Optional: Smooth rounded corners */
+    padding: 20px; /* Adjust padding if needed */
+    text-align: center;
+    background-color: #f8f9fa; /* Light background */
+  }
+  
+  .landing-header {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .landing-text {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .landing-btn {
+    background-color: #ff6600;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .landing-btn:hover {
+    background-color: #e65c00;
+  }
+  
+  
+  .shop-now-btn {
+    padding: 10px 20px;
+    background-color: #5f5a57;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+
+  .shop-now-btn:hover {
+    background-color: #55b675;
+  }
+  
