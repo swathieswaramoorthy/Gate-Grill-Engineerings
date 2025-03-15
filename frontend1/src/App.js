@@ -1,6 +1,6 @@
 import './App.css';
 import Home from './pages/Home';
-import Header from './components/Header';
+
 import Footer from './components/Footer';
 import Navbar from './components/NavBar'; // Import Navbar
 import LandingPage from './pages/LandingPage'; // Import Landing Page
@@ -19,7 +19,7 @@ function App() {
       <Router>
         <Navbar /> {/* Add Navbar here */}
         <ToastContainer theme='dark' position="top-center"/>
-        <Header cartItems={cartItems} setCartItems={setCartItems} />
+       {/* <Header cartItems={cartItems} setCartItems={setCartItems} />*/}
         
         <Routes>
           <Route path="/" element={<LandingPage />} />

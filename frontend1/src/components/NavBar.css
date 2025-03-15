@@ -1,31 +1,37 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-   
-  }
-  
-  .navbar h2 {
-    color: white;
-  }
-  
-  .navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-  }
-  
-  .navbar ul li {
-    display: inline;
-  }
-  
-  .navbar ul li a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .navbar ul li a:hover {
-    color: #ff6600;
-  }
-  
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+}
+
+.navbar h2 {
+  color: white;
+  flex: 1; /* Allows it to take available space */
+}
+
+.search-container {
+  flex: 2; /* Takes more space to center the search bar */
+  display: flex;
+  justify-content: center; /* Centers the search bar */
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin-left: auto; /* Pushes the menu to the right */
+}
+
+.navbar ul li {
+  display: inline;
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar ul li a:hover {
+  color: #738ea5;
+}
