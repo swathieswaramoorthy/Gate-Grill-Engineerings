@@ -1,46 +1,55 @@
 .landing-container {
-    border: 1px solid #ccc; /* Reduce border size */
-    border-radius: 5px; /* Optional: Smooth rounded corners */
-    padding: 20px; /* Adjust padding if needed */
-    text-align: center;
-    background-color: #f8f9fa; /* Light background */
-  }
-  
-  .landing-header {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-  
-  .landing-text {
-    font-size: 1.2rem;
-    color: #555;
-  }
-  
-  .landing-btn {
-    background-color: #ff6600;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .landing-btn:hover {
-    background-color: #e65c00;
-  }
-  
-  
-  .shop-now-btn {
-    padding: 10px 20px;
-    background-color: #5f5a57;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center;
+  padding: 50px;
+  text-align: center;
 }
 
+.welcome-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+ 
+}
 
-  .shop-now-btn:hover {
-    background-color: #55b675;
-  }
-  
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.image {
+  width: 50%;
+  height: auto;
+  object-fit: cover;
+  margin-top: 50px; /* Moves image down */
+}
+
+.landing-content {
+  flex: 1;
+  padding-left: 50px; /* Space between image and text */
+  text-align: left;
+  font-size: 1.5rem;
+}
+
+.shop-now-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.shop-now-btn:hover {
+  background-color: #94bfee;
+}
+.welcome-below{
+  font-size: 1rem;
+ 
+
+ 
+}
