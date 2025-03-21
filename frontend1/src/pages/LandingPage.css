@@ -1,55 +1,96 @@
+/* General Page Styling */
 .landing-container {
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
+  flex-direction: column;
   align-items: center;
-  padding: 50px;
+  padding: 60px 30px;
   text-align: center;
+  background: linear-gradient(135deg, #ffffff, #f3f8ff); /* Light gradient background */
 }
 
+/* Welcome Text */
 .welcome-text {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
- 
+  color: #004085; /* Dark blue for better contrast */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
 }
 
+/* Subtitle Below Welcome */
+.welcome-below {
+  font-size: 1.2rem;
+  color: #555;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+/* Content Wrapper */
 .content-wrapper {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  width: 100%;
+  justify-content: center;
   max-width: 1200px;
+  gap: 50px;
 }
 
+/* Image Styling */
 .image {
-  width: 50%;
+  width: 75%;
   height: auto;
   object-fit: cover;
-  margin-top: 50px; /* Moves image down */
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
 }
 
+.image:hover {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Landing Page Text Content */
 .landing-content {
   flex: 1;
-  padding-left: 50px; /* Space between image and text */
   text-align: left;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #333;
 }
 
+/* Call to Action Button */
 .shop-now-btn {
   display: inline-block;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: rgb(0, 0, 0);
+  padding: 12px 25px;
+  background: #007bff;
+  color: white;
   text-decoration: none;
-  border-radius: 5px;
-  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.3);
 }
 
 .shop-now-btn:hover {
-  background-color: #94bfee;
+  background: #0056b3;
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 15px rgba(0, 91, 187, 0.4);
 }
-.welcome-below{
-  font-size: 1rem;
- 
 
- 
+/* Responsive Design */
+@media (max-width: 992px) {
+  .content-wrapper {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .image {
+    width: 50%;
+  }
+
+  .landing-content {
+    padding-left: 0;
+    font-size: 1.2rem;
+    text-align: center;
+  }
 }
