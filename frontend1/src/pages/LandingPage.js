@@ -7,11 +7,11 @@ import "./LandingPage.css";
 const LandingPage = () => {
   return (
     <div className="landing-container">
-      {/* Welcome Text */}
+     
       <h1 className="welcome-text">Welcome to Shri Balaji Engineering</h1>
       <h2 className="welcome-below">~ Discover the best products at amazing prices ~</h2>
 
-      {/* Bootstrap Grid for Responsiveness */}
+      
       <div className="container">
         <div className="row align-items-center">
           
@@ -26,7 +26,7 @@ const LandingPage = () => {
               transition={{ type: "spring", stiffness: 120, damping: 12 }} // Smooth bounce effect
             />
           </div>
-          {/* Right Side - Text & Button */}
+         
           <div className="col-lg-6">
             <div className="landing-content">
               <p>
