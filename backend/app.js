@@ -1,28 +1,36 @@
 const express = require('express');
-const app= express();
 const dotenv = require('dotenv');
 const path = require('path');
-const connectDatabase = require('./config/connectDatabase.js');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const connectDatabase = require('./config/connectDatabase.js');
 
-dotenv.config({path : path.join(__dirname,'config','config.env')})
+dotenv.config({ path: path.join(__dirname, 'config', 'config.env') });
 
+const app = express();
+
+// Middleware
+app.use(express.json());
+app.use(cors({ origin: "http://localhost:3000" }));
+
+// Database Connection
+connectDatabase();
+
+// Import Routes
 const products = require('./routes/product');
 const orders = require('./routes/order');
 
-connectDatabase();
-app.use(express.json())
-app.use(cors({origin:"http://localhost:3000"}));
-app.use('/api/v1/',products);
-app.use('/api/v1/',orders);
+// Routes
+app.use('/api/v1/', products);
+app.use('/api/v1/', orders);
 
-mongoose.connect(process.env.DB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'))
-.catch(err => console.log('DB Connection Error:', err));
+// Start Server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+});
 
-app.listen(process.env.PORT,()=>{
-    console.log(`Server is ruuning in the port ${process.env.PORT} in ${process.env.NODE_ENV}`)
+// Global Error Handling
+process.on("unhandledRejection", (err) => {
+    console.error(`Unhandled Rejection: ${err.message}`);
+    process.exit(1);
 });
