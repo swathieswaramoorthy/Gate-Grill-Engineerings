@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 const cors = require('cors');
 const connectDatabase = require('./config/connectDatabase.js');
-
+const authRoutes = require('./routes/Auth');
 dotenv.config({ path: path.join(__dirname, 'config', 'config.env') });
 
 const app = express();
@@ -22,6 +22,7 @@ const orders = require('./routes/order');
 // Routes
 app.use('/api/v1/', products);
 app.use('/api/v1/', orders);
+app.use('/api/auth', authRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
