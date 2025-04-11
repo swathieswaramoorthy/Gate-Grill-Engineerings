@@ -1,0 +1,118 @@
+.top-bar-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 40px 0 0;
+  }
+  
+  .customize-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .customize-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .exit-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  /* Background overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* light black */
+    z-index: 999;
+  }
+  
+  /* Modal box styling */
+  .customize-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    z-index: 1000;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+  }
+  
+  /* Upload file button */
+  .custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Textarea */
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    margin: 10px 0 20px;
+  }
+  
+  /* Buttons */
+  button.submit-btn, button.cancel-btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  button.submit-btn {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  button.submit-btn:hover {
+    background-color: #218838;
+  }
+  
+  button.cancel-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  button.cancel-btn:hover {
+    background-color: #c82333;
+  }
+  
+  /* File name text */
+  .file-name {
+    margin-top: 8px;
+    color: green;
+    font-weight: 500;
+  }
+  

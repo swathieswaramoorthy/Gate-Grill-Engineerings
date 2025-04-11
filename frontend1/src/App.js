@@ -30,7 +30,8 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Navbar />
+      <Navbar cartItems={cartItems} />
+
         <ToastContainer theme='dark' position="top-center"/>
        
         
