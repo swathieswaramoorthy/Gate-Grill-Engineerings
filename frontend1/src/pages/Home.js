@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <Fragment>
-      <h1 id="products_heading">Projects Done</h1>
+      <h1 id="products_heading">AVAILABLE DESIGNS</h1>
 
       <section id="products" className="container mt-5">
         <div className="row">
@@ -32,7 +32,7 @@ export default function Home() {
       </section>
 
       {/* Exit Button */}
-      <button className="exit-btn" onClick={handleExit}>exit</button>
+      <button className="exit-btn" onClick={handleExit}>Exit</button>
     </Fragment>
   );
 }

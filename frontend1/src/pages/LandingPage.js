@@ -3,9 +3,14 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap for styling
 import "./LandingPage.css"; 
+import { useNavigate } from 'react-router-dom';
+
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
   return (
+    <>
     <div className="landing-container">
      
       <h1 className="welcome-text">Welcome to Shri Balaji Engineering</h1>
@@ -44,6 +49,15 @@ const LandingPage = () => {
         </div>
       </div>
     </div>
+    <div className="button-group">
+        <button className="explore-now-btn" onClick={() => navigate('/search?keyword=shed')}>Shed</button>
+        <button className="explore-now-btn" onClick={() => navigate('/search?keyword=steps')}>Steps</button>
+        <button className="explore-now-btn" onClick={() => navigate('/search?keyword=gate')}>Gates</button>
+        <button className="explore-now-btn" onClick={() => navigate('/search?keyword=windows')}>Windows</button>
+        <button className="explore-now-btn" onClick={() => navigate('/search?keyword=grills')}>Grills</button>
+      </div>
+
+     </>
   );
 };
 

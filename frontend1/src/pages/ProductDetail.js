@@ -51,10 +51,10 @@ export default function ProductDetail({ cartItems, setCartItems }) {
         </button>
 
         <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-        <Link to="/cart">
-        <span id="cart" className="ml-3" color={'black'}>CART</span>
+        {/* <Link to="/cart">
+        //<span id="cart" className="ml-3" color={'black'}>CART</span>
         <span className="ml-1" id="cart_count">{cartItems?.length || 0}</span>
-        </Link>
+        </Link> */}
      
       </div>
         <div className="row f-flex justify-content-around">

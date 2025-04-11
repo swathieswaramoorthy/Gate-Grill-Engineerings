@@ -71,7 +71,7 @@ export default function Cart({cartItems,setCartItems}){
  
  
                      <div class="col-4 col-lg-2 mt-4 mt-lg-0">
-                         <p id="card_item_price">${item.product.price}</p>
+                         <p id="card_item_price">{item.product.price}</p>
                      </div>
  
                      <div class="col-4 col-lg-3 mt-4 mt-lg-0">
@@ -99,7 +99,7 @@ export default function Cart({cartItems,setCartItems}){
                 <h4>Order Summary</h4>
                 <hr />
                 <p>Subtotal:  <span class="order-summary-values">{cartItems.reduce((acc,item)=>(acc+item.qty),0)} (Units)</span></p>
-                <p>Est. total: <span class="order-summary-values">${cartItems.reduce((acc,item) => (acc  + item.product.price *item.qty),0)}</span></p>
+                <p>Est. total: <span class="order-summary-values">{cartItems.reduce((acc,item) => (acc  + item.product.price *item.qty),0)}</span></p>
 
                 <hr />
                 <button id="checkout_btn" class="btn btn-primary btn-block">Place Order</button>

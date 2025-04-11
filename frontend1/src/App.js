@@ -12,6 +12,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Sheds from './pages/Sheds'; 
+import Steps from './pages/Steps'; 
+import Gates from './pages/Gates'; 
+import Windows from './pages/Windows'; 
+import Grills from './pages/Grills'; 
+import FeedBack from './components/FeedBack'; 
+import Contact from './components/Contact'; 
+
+
+
+
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -24,6 +35,16 @@ function App() {
        
         
         <Routes>
+        <Route path="/sheds" element={<Sheds />} />
+        <Route path="/steps" element={<Steps />} />
+        <Route path="/gates" element={<Gates />} />
+        <Route path="/windows" element={<Windows/>} />
+        <Route path="/grills" element={<Grills />} />
+        <Route path="/feedback" element={<FeedBack/>}/>
+        <Route path="/contact" element={<Contact/>}/>
+
+
+
          <Route path="/login" element={<Login />} />
          <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<LandingPage />} />

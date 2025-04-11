@@ -1,0 +1,12 @@
+.feedback-page {
+    max-width: 750px;
+    margin: auto;
+    background: #f8f9fa;
+    border-radius: 10px;
+  }
+  
+  .compact-input {
+    max-width: 100%;
+    min-width: 250px;
+  }
+  
