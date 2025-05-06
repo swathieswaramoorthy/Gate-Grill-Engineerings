@@ -28,20 +28,39 @@ export default function Home() {
     setUploadedImage(file);
   };
 
-  const handleSubmit = () => {
-    // Simulate form submission
-    console.log("Submitted:", { image: uploadedImage, text: textContent });
+  const handleSubmit = async () => {
+    if (!uploadedImage && !textContent) {
+      toast.error("Please upload an image or enter a description.");
+      return;
+    }
   
-    // Show success toast
-    toast.success("Design submitted successfully!");
+    const formData = new FormData();
+    formData.append("image", uploadedImage);
+    formData.append("description", textContent);
   
-    // Clear form data
+    try {
+      const response = await fetch("http://localhost:8000/custom-designs", {
+        method: "POST",
+        body: formData,
+      })
+      
+  
+      const data = await response.json();
+      if (response.ok) {
+        toast.success("Design submitted successfully!");
+      } else {
+        toast.error(data.message || "Submission failed.");
+      }
+    } catch (error) {
+      console.error("Error submitting design:", error);
+      toast.error("Something went wrong.");
+    }
+  
     setUploadedImage(null);
     setTextContent("");
-  
-    // Close modal
     setShowModal(false);
   };
+  
 
   return (
     <Fragment>

@@ -8,14 +8,34 @@ function Signup() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleSignup = (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault();
 
-        if (username && email && password) {
-            alert("Signup Successful!");
-            navigate("/login"); // Redirect to login page
-        } else {
+        if (!username || !email || !password) {
             alert("Please fill in all fields.");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:8000/api/v1/auth/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username, email, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert(data.message || "Signup Successful!");
+                navigate("/login");
+            } else {
+                alert(data.message || "Signup failed. Try again.");
+            }
+        } catch (error) {
+            console.error("Signup error:", error);
+            alert("An error occurred during signup.");
         }
     };
 
@@ -51,4 +71,3 @@ function Signup() {
 }
 
 export default Signup;
-

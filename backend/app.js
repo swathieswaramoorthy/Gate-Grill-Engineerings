@@ -3,35 +3,35 @@ const dotenv = require('dotenv');
 const path = require('path');
 const cors = require('cors');
 
+// Import the routes before using them
+
 const connectDatabase = require('./config/connectDatabase.js');
-//const authRoutes = require('./routes/Auth');
 dotenv.config({ path: path.join(__dirname, 'config', 'config.env') });
 
 const app = express();
 
 // Middleware
+
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000" }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Serve uploaded files
 
-
 // Database Connection
 connectDatabase();
 
-// Import Routes
+// Routes
+//app.use("/api/v1/custom-designs", customizeRoutes);  // This should match your API URL
+
+// Other Routes
 const products = require('./routes/product');
 const orders = require('./routes/order');
+// More routes...
+const authRoutes = require('./routes/auth');
 const customizeRoutes = require("./routes/customize");
-//const signup =require("./routes/auth.js");
-
-
-// Routes
+app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/', products);
 app.use('/api/v1/', orders);
-//app.use('/api/auth', authRoutes);
- app.use("/api/contact", require("./routes/contact"));
- app.use("/api/feedback", require("./routes/feedback"));
- //app.use("/api/v1/signup",signup);
+app.use("/custom-designs", customizeRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
