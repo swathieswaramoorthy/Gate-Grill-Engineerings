@@ -1,37 +1,104 @@
+
 .navbar {
   display: flex;
   align-items: center;
-  background-color: #333;
-  padding: 10px 20px;
+  justify-content: space-between;
+  background-color: #131921;
+  height: 80px; /* Set the desired height */
+  padding: 0 20px;
+  gap: 20px;
 }
 
-.navbar h2 {
-  color: white;
-  flex: 1; /* Allows it to take available space */
+/* Logo section */
+.logo img {
+  width: 150px;
 }
 
+/* Centered Search Bar */
 .search-container {
-  flex: 2; /* Takes more space to center the search bar */
+  flex: 1;
   display: flex;
-  justify-content: center; /* Centers the search bar */
+  justify-content: center;
+  position: relative;
 }
 
-.navbar ul {
+/* Hamburger icon */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+  position: absolute;
+  right: 20px;
+}
+
+/* Search box input */
+.search-container input {
+  width: 100%;
+  max-width: 500px;
+  /*padding: 8px;*/
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  font-size: 16px; /* new */
+  padding: 10px;
+}
+
+/* Navigation links */
+.nav-links {
+  display: flex;
   list-style: none;
-  display: flex;
   gap: 15px;
-  margin-left: auto; /* Pushes the menu to the right */
+  margin: 0;
+  padding: 0;
+  align-items: center;
 }
 
-.navbar ul li {
-  display: inline;
-}
-
-.navbar ul li a {
+.nav-links li a,
+.nav-links li span,
+.nav-links li button {
   color: white;
   text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.navbar ul li a:hover {
-  color: #738ea5;
+.nav-links li a:hover {
+  color: #febd69;
+}
+
+.nav-links li button {
+  background-color: #febd69;
+  color: #111;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 8px 16px; /* was 6px 12px */
+  font-size: 15px;
+}
+
+.nav-links li button:hover {
+  background-color: #f3a847;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #131921;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    padding: 10px 0;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+  .hamburger {
+    display: block;
+  }
 }

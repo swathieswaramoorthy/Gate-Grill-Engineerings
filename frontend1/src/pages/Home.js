@@ -4,7 +4,6 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import "./Home.css";
 import { toast } from "react-toastify";
 
-
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [searchParams] = useSearchParams();
@@ -25,7 +24,8 @@ export default function Home() {
   };
 
   const handleImageUpload = (e) => {
-    setUploadedImage(URL.createObjectURL(e.target.files[0]));
+    const file = e.target.files[0];
+    setUploadedImage(file);
   };
 
   const handleSubmit = () => {
@@ -42,10 +42,10 @@ export default function Home() {
     // Close modal
     setShowModal(false);
   };
-  
+
   return (
     <Fragment>
-      {/* Top-right Customize Button */}
+      {/* Customize Button */}
       <div className="top-bar-actions">
         <button className="customize-btn" onClick={() => setShowModal(true)}>
           Customize Your Design
@@ -62,52 +62,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Exit Button */}
-      <div style={{ textAlign: "center", marginTop: "10px" }}>
-        <button className="exit-btn" onClick={handleExit}>Exit</button>
-      </div>
+   
+     
 
-      {/* Modal */}
+      {/* Customize Modal */}
       {showModal && (
-  <>
-    <div className="modal-overlay" onClick={() => setShowModal(false)} />
-    <div className="customize-modal">
-      <h2>Upload your design or describe it</h2>
+        <>
+          <div className="modal-overlay" onClick={() => setShowModal(false)} />
+          <div className="customize-modal">
+            <h2>Upload your design or describe it</h2>
 
-      <label htmlFor="file-upload" className="custom-file-upload">
-        Upload File
-      </label>
-      <input
-        id="file-upload"
-        type="file"
-        style={{ display: "none" }}
-        onChange={(e) => setUploadedImage(e.target.files[0])}
-      />
+            <label htmlFor="file-upload" className="custom-file-upload">
+              Upload File
+            </label>
+            <input
+              id="file-upload"
+              type="file"
+              style={{ display: "none" }}
+              onChange={handleImageUpload}
+            />
 
-      {/* Show uploaded file name */}
-      {uploadedImage && (
-        <p className="file-name">File Uploaded: {uploadedImage.name}</p>
+            {uploadedImage && (
+              <p className="file-name">File Uploaded: {uploadedImage.name}</p>
+            )}
+
+            <textarea
+              value={textContent}
+              onChange={(e) => setTextContent(e.target.value)}
+              placeholder="Describe your custom design..."
+            />
+
+            <div>
+              <button className="submit-btn" onClick={handleSubmit}>
+                Submit
+              </button>
+              <button className="cancel-btn" onClick={() => setShowModal(false)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </>
       )}
-
-      <textarea
-        value={textContent}
-        onChange={(e) => setTextContent(e.target.value)}
-        placeholder="Describe your custom design..."
-      />
-
-      <div>
-        <button className="submit-btn" onClick={handleSubmit}>
-          Submit
-        </button>
-        <button className="cancel-btn" onClick={() => setShowModal(false)}>
-          Cancel
-        </button>
-      </div>
-    </div>
-  </>
-)}
-
-
     </Fragment>
   );
 }

@@ -18,10 +18,23 @@ const ContactPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Contact form submitted:", formData);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
+  
+    fetch("http://localhost:8000/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Saved to DB:", data);
+        setSubmitted(true); // Show success message
+        setFormData({ name: "", email: "", message: "" }); // Clear the form
+      })
+      .catch(err => console.error(err));
   };
+  
 
   return (
     <div className="contact-page-container">

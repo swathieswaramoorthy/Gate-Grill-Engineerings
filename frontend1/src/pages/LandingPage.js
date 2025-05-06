@@ -6,11 +6,11 @@ import "./LandingPage.css";
 
 const LandingPage = () => {
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false); // Menu toggle
+  //const [menuOpen, setMenuOpen] = useState(false); // Menu toggle
 
   return (
     <>
-      {/* Hamburger Menu */}
+      {/* Hamburger Menu
       <div className="hamburger-menu" onClick={() => setMenuOpen(!menuOpen)}>
         <div className="bar"></div>
         <div className="bar"></div>
@@ -18,7 +18,7 @@ const LandingPage = () => {
       </div>
 
       {/* Slide-out Menu */}
-      {menuOpen && (
+      {/* {menuOpen && (
         <div className="side-menu">
           <button onClick={() => navigate('/search?keyword=shed')}>Shed</button>
           <button onClick={() => navigate('/search?keyword=steps')}>Steps</button>
@@ -26,7 +26,7 @@ const LandingPage = () => {
           <button onClick={() => navigate('/search?keyword=windows')}>Windows</button>
           <button onClick={() => navigate('/search?keyword=grills')}>Grills</button>
         </div>
-      )}
+      )} */} 
 
       <div className="landing-container">
         <h1 className="welcome-text">Welcome to Shri Balaji Engineering</h1>

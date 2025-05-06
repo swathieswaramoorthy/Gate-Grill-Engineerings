@@ -19,6 +19,7 @@ import Windows from './pages/Windows';
 import Grills from './pages/Grills'; 
 import FeedBack from './components/FeedBack'; 
 import Contact from './components/Contact'; 
+//import AdminDash from './components/AdminDash';
 
 
 
@@ -43,6 +44,10 @@ function App() {
         <Route path="/grills" element={<Grills />} />
         <Route path="/feedback" element={<FeedBack/>}/>
         <Route path="/contact" element={<Contact/>}/>
+    
+       
+        
+
 
 
 

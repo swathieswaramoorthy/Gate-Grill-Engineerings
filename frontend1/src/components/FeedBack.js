@@ -19,10 +19,29 @@ const FeedbackPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Feedback submitted:", formData);
-    setSubmitted(true);
-    setFormData({ name: "", email: "", rating: "", message: "" });
+  
+    fetch("http://localhost:8000/api/feedback", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData), // ✅ use formData
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Feedback saved:", data);
+        setSubmitted(true);
+        setFormData({
+          name: "",
+          email: "",
+          rating: "",
+          message: "",
+        });
+      })
+      .catch((err) => console.error("Error:", err));
   };
+  
+  
 
   return (
     <div className="container feedback-page mt-5">

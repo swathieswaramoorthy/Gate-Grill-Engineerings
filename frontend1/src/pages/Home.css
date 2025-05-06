@@ -18,16 +18,8 @@
   .customize-btn:hover {
     background-color: #0056b3;
   }
+ 
   
-  .exit-btn {
-    background-color: #dc3545;
-    color: white;
-    padding: 8px 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
   
   /* Background overlay */
 .modal-overlay {
