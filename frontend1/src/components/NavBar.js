@@ -1,11 +1,11 @@
+// Navbar.js
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Search from "./Search";
 import "./NavBar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Navbar = ({ cartItems }) => {
-  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -13,7 +13,6 @@ const Navbar = ({ cartItems }) => {
       <nav className="navbar">
         {/* Left: Logo & Hamburger */}
         <div className="left-section">
-          
           <Link to="/" className="logo">
             <img width="150px" src="/images/logo.png" alt="Logo" />
           </Link>
@@ -35,7 +34,7 @@ const Navbar = ({ cartItems }) => {
               <span id="cart_count">{cartItems?.length || 0}</span>
             </Link>
           </li>
-         
+          <li><Link to="/admindashboard"><button>Admin Dashboard</button></Link></li> {/* Admin Dashboard Button */}
           <li><Link to="/login"><button>Login</button></Link></li>
           <li><Link to="/signup"><button>Signup</button></Link></li>
         </ul>

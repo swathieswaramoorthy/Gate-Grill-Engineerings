@@ -1,7 +1,7 @@
+// App.js
 import './App.css';
 import Home from './pages/Home';
-//import AdminDashboard from "./pages/AdminDashboard";
-
+import AdminDashboard from './pages/AdminDashboard'; // Import AdminDashboard
 import Footer from './components/Footer';
 import Navbar from './components/NavBar'; // Import Navbar
 import LandingPage from './pages/LandingPage'; // Import Landing Page
@@ -20,11 +20,6 @@ import Windows from './pages/Windows';
 import Grills from './pages/Grills'; 
 import FeedBack from './components/FeedBack'; 
 import Contact from './components/Contact'; 
-//import AdminDash from './components/AdminDash';
-
-
-
-
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -32,28 +27,23 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <Navbar cartItems={cartItems} />
+        <Navbar cartItems={cartItems} />
 
-        <ToastContainer theme='dark' position="top-center"/>
-       
-        
+        <ToastContainer theme="dark" position="top-center" />
+
         <Routes>
-        <Route path="/sheds" element={<Sheds />} />
-        <Route path="/steps" element={<Steps />} />
-        <Route path="/gates" element={<Gates />} />
-        <Route path="/windows" element={<Windows/>} />
-        <Route path="/grills" element={<Grills />} />
-        <Route path="/feedback" element={<FeedBack/>}/>
-        <Route path="/contact" element={<Contact/>}/>
-    
-       
-        
-
-
-
-
-         <Route path="/login" element={<Login />} />
-         <Route path="/signup" element={<Signup />} />
+          <Route path="/sheds" element={<Sheds />} />
+          <Route path="/steps" element={<Steps />} />
+          <Route path="/gates" element={<Gates />} />
+          <Route path="/windows" element={<Windows />} />
+          <Route path="/grills" element={<Grills />} />
+          <Route path="/feedback" element={<FeedBack />} />
+          <Route path="/contact" element={<Contact />} />
+          
+          <Route path="/admindashboard" element={<AdminDashboard />} /> {/* Admin Dashboard Route */}
+          
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/search" element={<Home />} />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './login.css'; // Make sure the CSS file exists
+import './login.css';
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -28,9 +28,11 @@ function Login() {
 
             if (response.ok) {
                 alert(data.message || "Login successful!");
-                // Optional: save user info or token
-                // localStorage.setItem("user", JSON.stringify(data.user));
-                navigate("/dashboard"); // Change this to your post-login page
+                const user = data.user; // Extract the entire user object
+
+                // Store user data in localStorage or in React state
+                localStorage.setItem("user", JSON.stringify(user)); // Store user info in localStorage
+                navigate("/profile"); // Navigate to the profile page after login
             } else {
                 alert(data.message || "Login failed.");
             }

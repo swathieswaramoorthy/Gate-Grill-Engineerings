@@ -1,8 +1,10 @@
-const bcrypt = require('bcryptjs');
-const User = require('../models/User');
+// backend/controllers/authController.js
+import bcrypt from 'bcryptjs';
+import User from '../models/User.js';
 
+// Signup controller
 const signup = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, role } = req.body;
 
   if (!username || !email || !password) {
     return res.status(400).json({ message: 'Please fill in all fields' });
@@ -15,8 +17,8 @@ const signup = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ username, email, password: hashedPassword, role: role || 'user' });
 
-    const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
 
     res.status(201).json({ message: 'User registered successfully' });
@@ -26,6 +28,7 @@ const signup = async (req, res) => {
   }
 };
 
+// Login controller
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -40,11 +43,22 @@ const login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    res.status(200).json({ message: 'Login successful', user: { id: user._id, username: user.username, email: user.email } });
+    const isAdmin = user.username === 'admin' || user.role === 'admin';
+
+    res.status(200).json({
+      message: isAdmin ? 'Admin login successful' : 'User login successful',
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      },
+      redirectUrl: isAdmin ? '/admin/dashboard' : '/user/dashboard'
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 };
 
-module.exports = { signup, login };
+export { signup, login };

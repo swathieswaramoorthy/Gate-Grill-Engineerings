@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 const CustomizeSchema = new mongoose.Schema({
   imageUrl: {
@@ -15,5 +15,4 @@ const CustomizeSchema = new mongoose.Schema({
   }
 });
 
-// ✅ Only compile model if it hasn't been compiled already
-module.exports = mongoose.models.Customize || mongoose.model("Customize", CustomizeSchema);
+export default mongoose.models.Customize || mongoose.model("Customize", CustomizeSchema);

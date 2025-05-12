@@ -1,115 +1,176 @@
-import { Fragment,useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-import {toast} from 'react-toastify'
-export default function Cart({cartItems,setCartItems}){
-    const[complete,setComplete] =useState(false);
-    function increaseQty(item){
-        if(item.product.stock == item.qty)
-        {
-            return;
-        }
-        const updatedItems = cartItems.map((i)=>{
-            if(i.product._id == item.product._id){
-                i.qty++
-            }
-            return i;
-        })
-        setCartItems(updatedItems)
+import { toast } from 'react-toastify';
+import { QRCodeCanvas } from 'qrcode.react';
 
-     }
-     function decreaseQty(item){
-        if(item.product.stock == item.qty)
-            {
-                return;
-            }
-            const updatedItems = cartItems.map((i)=>{
-                if(i.product._id == item.product._id){
-                    i.qty--
-                }
-                return i;
-            })
-            setCartItems(updatedItems)
+const Cart = ({ cartItems, setCartItems }) => {
+  const [complete, setComplete] = useState(false);
+  const [orderData, setOrderData] = useState(null);
 
-     } 
-     function removeItem(item){ 
-        const updatedItems = cartItems.filter((i) => i.product._id !== item.product._id);
-        setCartItems(updatedItems)
+  const increaseQty = (item) => {
+    if (item.product.stock === item.qty) return;
+    const updatedItems = cartItems.map(i =>
+      i.product._id === item.product._id ? { ...i, qty: i.qty + 1 } : i
+    );
+    setCartItems(updatedItems);
+  };
 
-     }
-     function placeOrderHandler(){
-        fetch(process.env.REACT_APP_API_URL+'/order',{
-            method:'POST',
-            headers:{'Content-Type':'appliaction/json'},
-            body:JSON.stringify(cartItems)
-        })
-        .then(()=> {
-            setCartItems([]);
-            setComplete(true);
-            toast.success('Order Successfull!')
-        })
-        
-     }
+  const decreaseQty = (item) => {
+    if (item.qty === 1) return;
+    const updatedItems = cartItems.map(i =>
+      i.product._id === item.product._id ? { ...i, qty: i.qty - 1 } : i
+    );
+    setCartItems(updatedItems);
+  };
 
-    return  cartItems.length>0 ?<Fragment>
-    <div class="container container-fluid">
-    <h2 class="mt-5">Your Cart: <b>{cartItems.length}items</b></h2>
-    
-    <div class="row d-flex justify-content-between">
-        <div class="col-12 col-lg-8">
-            {cartItems.map((item) =>
-             (<Fragment>
-             <hr />
-             <div class="cart-item">
-                 <div class="row">
-                     <div class="col-4 col-lg-3">
-                         <img src={item.product.images[0].image} alt={item.product.name} height="90" width="115" />
-                     </div>
- 
-                     <div class="col-5 col-lg-3">
-                     <Link to={"/product/"+item.product._id}>{item.product.name}</Link>
-                     </div>
- 
- 
-                     <div class="col-4 col-lg-2 mt-4 mt-lg-0">
-                         <p id="card_item_price">{item.product.price}</p>
-                     </div>
- 
-                     <div class="col-4 col-lg-3 mt-4 mt-lg-0">
-                         <div class="stockCounter d-inline">
-                             <span class="btn btn-danger minus" onClick={()=>decreaseQty(item)}>-</span>
-                             <input type="number" class="form-control count d-inline" value={item.qty} readOnly />
- 
-                             <span class="btn btn-primary plus" onClick={() => increaseQty(item)}>+</span>
-                         </div>
-                     </div>
- 
-                     <div class="col-4 col-lg-1 mt-4 mt-lg-0">
-                         <i id="delete_cart_item" onClick={()=>removeItem(item)} class="fa fa-trash btn btn-danger"></i>
-                     </div>
- 
-                 </div>
-             </div>
-             </Fragment>)
-            )}
-           
-        </div>
+  const removeItem = (item) => {
+    const updatedItems = cartItems.filter(i => i.product._id !== item.product._id);
+    setCartItems(updatedItems);
+  };
 
-        <div class="col-12 col-lg-3 my-4">
+  const placeOrderHandler = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/order`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(cartItems)
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to place order");
+      }
+
+      const data = await response.json();
+      setCartItems([]);
+      setComplete(true);
+      setOrderData(data);
+      toast.success("Order placed successfully!");
+    } catch (error) {
+      console.error("Error placing order:", error);
+      toast.error("Failed to place order");
+    }
+  };
+
+  if (cartItems.length === 0) {
+    return (
+      <div className="container container-fluid mt-5">
+        {complete && orderData ? (
+          <div>
+            <h2>Order Completed!</h2>
+            <p>Your order has been placed successfully.</p>
+            <h5>Scan QR to track your order:</h5>
+            <QRCodeCanvas value={JSON.stringify(orderData)} size={200} />
+          </div>
+        ) : (
+          <h2>Your Cart is Empty!</h2>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <Fragment>
+      <div className="container container-fluid">
+        <h2 className="mt-5">
+          Your Cart: <b>{cartItems.length} items</b>
+        </h2>
+
+        <div className="row d-flex justify-content-between">
+          <div className="col-12 col-lg-8">
+            {cartItems.map((item, index) => (
+              <Fragment key={index}>
+                <hr />
+                <div className="cart-item">
+                  <div className="row">
+                    <div className="col-4 col-lg-3">
+                      <img
+                        src={item.product.images[0].image}
+                        alt={item.product.name}
+                        height="90"
+                        width="115"
+                      />
+                    </div>
+
+                    <div className="col-5 col-lg-3">
+                      <Link to={`/product/${item.product._id}`}>
+                        {item.product.name}
+                      </Link>
+                    </div>
+
+                    <div className="col-4 col-lg-2 mt-4 mt-lg-0">
+                      <p id="card_item_price">{item.product.price}</p>
+                    </div>
+
+                    <div className="col-4 col-lg-3 mt-4 mt-lg-0">
+                      <div className="stockCounter d-inline">
+                        <span
+                          className="btn btn-danger minus"
+                          onClick={() => decreaseQty(item)}
+                        >
+                          -
+                        </span>
+
+                        <input
+                          type="number"
+                          className="form-control count d-inline"
+                          value={item.qty}
+                          readOnly
+                        />
+
+                        <span
+                          className="btn btn-primary plus"
+                          onClick={() => increaseQty(item)}
+                        >
+                          +
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="col-4 col-lg-1 mt-4 mt-lg-0">
+                      <i
+                        id="delete_cart_item"
+                        onClick={() => removeItem(item)}
+                        className="fa fa-trash btn btn-danger"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </Fragment>
+            ))}
+          </div>
+
+          <div className="col-12 col-lg-3 my-4">
             <div id="order_summary">
-                <h4>Order Summary</h4>
-                <hr />
-                <p>Subtotal:  <span class="order-summary-values">{cartItems.reduce((acc,item)=>(acc+item.qty),0)} (Units)</span></p>
-                <p>Est. total: <span class="order-summary-values">{cartItems.reduce((acc,item) => (acc  + item.product.price *item.qty),0)}</span></p>
-
-                <hr />
-                <button id="checkout_btn" class="btn btn-primary btn-block">Place Order</button>
+              <h4>Order Summary</h4>
+              <hr />
+              <p>
+                Subtotal:{" "}
+                <span className="order-summary-values">
+                  {cartItems.reduce((acc, item) => acc + item.qty, 0)} (Units)
+                </span>
+              </p>
+              <p>
+                Est. total:{" "}
+                <span className="order-summary-values">
+                  ₹{cartItems.reduce((acc, item) => acc + item.product.price * item.qty, 0)}
+                </span>
+              </p>
+              <hr />
+              <button
+                id="checkout_btn"
+                className="btn btn-primary btn-block"
+                onClick={placeOrderHandler}
+              >
+                Place Order
+              </button>
             </div>
+          </div>
         </div>
-    </div>
-     </div>
-     </Fragment> : (!complete ? <h2 className='mt-5'>Your Cart is Empty!</h2> 
-            : <Fragment>
-                <h2 className='mt-5'>Order Complete!</h2>
-                <p>Your order has been placed succesfully.</p>
-            </Fragment>)
-}
+      </div>
+    </Fragment>
+  );
+};
+
+export default Cart;

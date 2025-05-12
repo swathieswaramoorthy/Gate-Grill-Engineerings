@@ -1,38 +1,33 @@
-const ProductModel = require('../models/productModel');
+import ProductModel from '../models/productModel.js';
 
-// to use await async is used
-//get products api---api/v1/product
-exports.getProducts = async (req,res,next)=>{
-   const query=req.query.keyword?{name:{
-    $regex:req.query.keyword,
-    $options: 'i' //no case sensitive
+// Get products API --- api/v1/product
+export const getProducts = async (req, res, next) => {
+  const query = req.query.keyword
+    ? { name: { $regex: req.query.keyword, $options: 'i' } }
+    : {}; // Else every product will be displayed
+  
+  const products = await ProductModel.find(query);
 
-   }}:{}//else every produts will be displayed
-    const products = await ProductModel.find(query);
-    
-    res.json({
-        success:true,
-        products
-    })
-}
-//get single products api---api/v1/product/:id
+  res.json({
+    success: true,
+    products
+  });
+};
 
-exports.getSingleProduct = async(req,res,next)=>{
-  console.log(req.params.id  ,'ID') //to get the id
-  try{
+// Get single product API --- api/v1/product/:id
+export const getSingleProduct = async (req, res, next) => {
+  console.log(req.params.id, 'ID'); // To get the ID
+
+  try {
     const product = await ProductModel.findById(req.params.id);
     res.json({
-        success:true,
-        product
-    })
-  }
-  catch(error)
-  {
+      success: true,
+      product
+    });
+  } catch (error) {
     res.status(404).json({
-        success:false,
-        //message:error.message
-        message:'Unable to get the product with that ID'
-    })
+      success: false,
+      message: 'Unable to get the product with that ID'
+    });
   }
-   
-}
+};

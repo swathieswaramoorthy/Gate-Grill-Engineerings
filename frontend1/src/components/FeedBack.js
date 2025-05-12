@@ -10,7 +10,8 @@ const FeedbackPage = () => {
     message: "",
   });
 
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState(false);  // for success message
+  const [error, setError] = useState(""); // for handling errors
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,29 +20,35 @@ const FeedbackPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+    
     fetch("http://localhost:8000/api/feedback", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData), // ✅ use formData
+      body: JSON.stringify(formData),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Feedback saved:", data);
-        setSubmitted(true);
-        setFormData({
-          name: "",
-          email: "",
-          rating: "",
-          message: "",
-        });
+        if (data.error) {
+          setError(data.error);
+        } else {
+          console.log("Feedback saved:", data);
+          setSubmitted(true); // Show success message
+          setError(""); // Reset error message
+          setFormData({
+            name: "",
+            email: "",
+            rating: "",
+            message: "",
+          });
+        }
       })
-      .catch((err) => console.error("Error:", err));
+      .catch((err) => {
+        console.error("Error:", err);
+        setError("An error occurred while submitting your feedback. Please try again.");
+      });
   };
-  
-  
 
   return (
     <div className="container feedback-page mt-5">
@@ -50,6 +57,12 @@ const FeedbackPage = () => {
       {submitted && (
         <div className="alert alert-success text-center">
           Thank you for your feedback!
+        </div>
+      )}
+
+      {error && (
+        <div className="alert alert-danger text-center">
+          {error}
         </div>
       )}
 
