@@ -5,7 +5,7 @@ import cors from 'cors';
 // Routes
 import products from './routes/product.js';
 import orders from './routes/order.js';
-import authRoutes from './routes/auth.js';
+import authRoutes from './routes/Auth.js';
 import customizeRoutes from './routes/customize.js';
 import adminRoutes from './routes/admin.js';
 import feedbackRoute from "./routes/feedback.js"; // Assuming you are using ES modules
