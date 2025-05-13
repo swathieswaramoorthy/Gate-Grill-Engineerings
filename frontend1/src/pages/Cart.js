@@ -6,6 +6,9 @@ import { QRCodeCanvas } from 'qrcode.react';
 const Cart = ({ cartItems, setCartItems }) => {
   const [complete, setComplete] = useState(false);
   const [orderData, setOrderData] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [customerName, setCustomerName] = useState("");
+  const [customerEmail, setCustomerEmail] = useState("");
 
   const increaseQty = (item) => {
     if (item.product.stock === item.qty) return;
@@ -28,29 +31,47 @@ const Cart = ({ cartItems, setCartItems }) => {
     setCartItems(updatedItems);
   };
 
-  const placeOrderHandler = async () => {
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/order`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(cartItems)
+      // Send each cart item as a separate order
+      const orderPromises = cartItems.map(item => {
+        return fetch(`${process.env.REACT_APP_API_URL}/order`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            productName: item.product.name,
+            quantity: item.qty,
+            customerName,
+            customerEmail
+          })
+        });
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to place order");
+      const responses = await Promise.all(orderPromises);
+
+      if (responses.some(res => !res.ok)) {
+        throw new Error("Some orders failed");
       }
 
-      const data = await response.json();
+      const data = await Promise.all(responses.map(res => res.json()));
+
+      setOrderData(data); // Store full data
       setCartItems([]);
       setComplete(true);
-      setOrderData(data);
+      setShowForm(false);
       toast.success("Order placed successfully!");
     } catch (error) {
       console.error("Error placing order:", error);
       toast.error("Failed to place order");
     }
+  };
+
+  const placeOrderHandler = () => {
+    setShowForm(true); // Show the form before placing order
   };
 
   if (cartItems.length === 0) {
@@ -100,7 +121,7 @@ const Cart = ({ cartItems, setCartItems }) => {
                     </div>
 
                     <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                      <p id="card_item_price">{item.product.price}</p>
+                      <p id="card_item_price">₹{item.product.price}</p>
                     </div>
 
                     <div className="col-4 col-lg-3 mt-4 mt-lg-0">
@@ -169,6 +190,33 @@ const Cart = ({ cartItems, setCartItems }) => {
           </div>
         </div>
       </div>
+
+      {showForm && (
+        <div className="popup-form">
+          <div className="form-box">
+            <h3>Enter your details</h3>
+            <form onSubmit={handleFormSubmit}>
+              <input
+                type="text"
+                placeholder="Your Name"
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
+                required
+              />
+              <input
+                type="email"
+                placeholder="Your Email"
+                value={customerEmail}
+                onChange={(e) => setCustomerEmail(e.target.value)}
+                required
+              />
+              <button type="submit" className="btn btn-success">Submit & Place Order</button>
+
+            </form>
+            
+          </div>
+        </div>
+      )}
     </Fragment>
   );
 };

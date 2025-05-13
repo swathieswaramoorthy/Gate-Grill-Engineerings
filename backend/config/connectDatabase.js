@@ -1,5 +1,8 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+// connectDatabase.js (ESM version)
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const connectDatabase = async () => {
     try {
@@ -14,4 +17,4 @@ const connectDatabase = async () => {
     }
 };
 
-module.exports = connectDatabase;
+export default connectDatabase;

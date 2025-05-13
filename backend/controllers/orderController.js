@@ -1,14 +1,23 @@
-import orderModel from '../models/orderModel.js';
+import Order from "../models/orderModel.js";
 
-export const createOrder = async (req, res, next) => {
-  const cartItems = req.body;
-  const amount = Number(cartItems.reduce((acc, item) => (acc + item.product.price * item.qty), 0)).toFixed(2);
-  const status = 'pending';
+export const createOrder = async (req, res) => {
+  try {
+    const { productName, quantity, customerName, customerEmail } = req.body;
 
-  const order = await orderModel.create({ cartItems, amount, status });
+    if (!productName || !quantity || !customerName || !customerEmail) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
-  res.json({
-    success: true,
-    order
-  });
+    const order = await Order.create({
+      productName,
+      quantity,
+      customerName,
+      customerEmail
+    });
+
+    res.status(201).json(order);
+  } catch (error) {
+    console.error("Backend error placing order:", error);
+    res.status(500).json({ message: "Server error" });
+  }
 };

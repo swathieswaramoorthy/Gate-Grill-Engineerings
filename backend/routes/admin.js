@@ -1,12 +1,32 @@
 // routes/admin.js
 import express from 'express';
+
 import Contact from '../models/Contact.js';
 import Feedback from '../models/Feedback.js';
 import Order from '../models/orderModel.js';
 import Customize from "../models/Customize.js"; // import Customize model
+import Product from "../models/productModel.js";
+
+//image 
+import multer from 'multer';
+import path from 'path';
+
 
 const router = express.Router();
 
+
+//add products 
+// === Multer Config for Image Upload ===
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Make sure 'uploads/' folder exists
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); // unique filename
+  }
+});
+
+const upload = multer({ storage: storage });
 // Fetch all contacts
 
 // Fetch all customized designs
@@ -47,4 +67,47 @@ router.get("/orders", async (req, res) => {
   }
 });
 
+
+//add product
+// === Add Product Route ===
+router.post('/add-product', upload.single('image'), async (req, res) => {
+  try {
+    const {
+      name,
+      price,
+      description,
+      stock,
+      category,
+      seller
+    } = req.body;
+
+    const newProduct = new Product({
+      name,
+      price,
+      description,
+      stock,
+      category,
+      seller,
+      ratings: "0",
+      numOfReviews: "0",
+      images: [{ image: req.file.filename }]
+    });
+
+    await newProduct.save();
+    res.status(201).json({ message: 'Product added successfully' });
+  } catch (err) {
+    console.error("Error adding product:", err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// === Fetch All Products Route ===
+router.get('/products', async (req, res) => {
+  try {
+    const products = await Product.find().sort({ createdAt: -1 });
+    res.json(products);
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+});
 export default router;
