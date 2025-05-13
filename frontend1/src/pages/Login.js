@@ -113,7 +113,7 @@ function Login() {
                 };
                 localStorage.setItem("user", JSON.stringify(adminUser));
                 localStorage.setItem("isLoggedIn", "true");
-                
+                localStorage.setItem("role","admin");
                 // Redirect to admin dashboard
                 navigate("/admindashboard");
             } else {
@@ -125,7 +125,7 @@ function Login() {
                 };
                 localStorage.setItem("user", JSON.stringify(regularUser));
                 localStorage.setItem("isLoggedIn", "true");
-                
+                localStorage.removeItem("role");
                 // Redirect to user dashboard
                 navigate("/home");
             }

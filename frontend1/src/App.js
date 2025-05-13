@@ -21,6 +21,8 @@ import Grills from './pages/Grills';
 import FeedBack from './components/FeedBack'; 
 import Contact from './components/Contact'; 
 
+import Payment  from './pages/Payment';
+
 function App() {
   const [cartItems, setCartItems] = useState([]);
 
@@ -49,6 +51,8 @@ function App() {
           <Route path="/search" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail cartItems={cartItems} setCartItems={setCartItems} />} />
           <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
+
+          <Route path ='/payment' element = {<Payment />}/>
         </Routes>
 
         <Footer />

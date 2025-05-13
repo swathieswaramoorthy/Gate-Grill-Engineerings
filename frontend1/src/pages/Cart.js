@@ -6,9 +6,11 @@ import { QRCodeCanvas } from 'qrcode.react';
 const Cart = ({ cartItems, setCartItems }) => {
   const [complete, setComplete] = useState(false);
   const [orderData, setOrderData] = useState(null);
-  const [showForm, setShowForm] = useState(false);
-  const [customerName, setCustomerName] = useState("");
-  const [customerEmail, setCustomerEmail] = useState("");
+ 
+  // const [customerName, setCustomerName] = useState("");
+  // const [customerEmail, setCustomerEmail] = useState("");
+
+  
 
   const increaseQty = (item) => {
     if (item.product.stock === item.qty) return;
@@ -31,63 +33,61 @@ const Cart = ({ cartItems, setCartItems }) => {
     setCartItems(updatedItems);
   };
 
-  const handleFormSubmit = async (e) => {
-  e.preventDefault();
+//   const handleFormSubmit = async (e) => {
+//   e.preventDefault();
 
-  try {
-    const items = cartItems.map(item => ({
-      productName: item.product.name,
-      quantity: item.qty
-    }));
+//   try {
+//     const items = cartItems.map(item => ({
+//       productName: item.product.name,
+//       quantity: item.qty
+//     }));
 
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        items,
-        customerName,
-        customerEmail
-      })
-    });
+//     const response = await fetch(`${process.env.REACT_APP_API_URL}/order`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify({
+//         items,
+//         customerName,
+//         customerEmail
+//       })
+//     });
 
-    const data = await response.json();
+//     const data = await response.json();
 
-    if (!response.ok) throw new Error(data.message || "Failed to place order");
+//     if (!response.ok) throw new Error(data.message || "Failed to place order");
 
-    setOrderData(data);
-    setCartItems([]);
-    setComplete(true);
-    setShowForm(false);
-    toast.success("Order placed successfully!");
-  } catch (error) {
-    console.error("Error placing order:", error);
-    toast.error("Failed to place order");
-  }
-};
+//     setOrderData(data);
+//     setCartItems([]);
+//     setComplete(true);
+  
+//     toast.success("Order placed successfully!");
+//   } catch (error) {
+//     console.error("Error placing order:", error);
+//     toast.error("Failed to place order");
+//   }
+// };
 
 
-  const placeOrderHandler = () => {
-    setShowForm(true); // Show the form before placing order
-  };
-
-  if (cartItems.length === 0) {
-    return (
-      <div className="container container-fluid mt-5">
-        {complete && orderData ? (
-          <div>
-            <h2>Order Completed!</h2>
-            <p>Your order has been placed successfully.</p>
-            <h5>Scan QR to track your order:</h5>
-            <QRCodeCanvas value={JSON.stringify(orderData)} size={200} />
-          </div>
-        ) : (
-          <h2>Your Cart is Empty!</h2>
-        )}
-      </div>
-    );
-  }
+ 
+//   if (cartItems.length === 0) {
+//     return (
+//       <div className="container container-fluid mt-5">
+//         {complete && orderData ? (
+//           <div>
+//             <h2>Order Completed!</h2>
+//             <p>Your order has been placed successfully.</p>
+//             {/* <h5>Scan QR to track your order:</h5>
+//             <QRCodeCanvas value={JSON.stringify(orderData)} size={200} />
+//              */}
+//           </div>
+//         ) : (
+//           <h2>Your Cart is Empty!</h2>
+//         )}
+  //    </div>
+  //  );
+  // }
 
   return (
     <Fragment>
@@ -180,41 +180,16 @@ const Cart = ({ cartItems, setCartItems }) => {
               <button
                 id="checkout_btn"
                 className="btn btn-primary btn-block"
-                onClick={placeOrderHandler}
-              >
-                Place Order
+                
+              ><Link to ='/payment'>Place Order</Link>
+                
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {showForm && (
-        <div className="popup-form">
-          <div className="form-box">
-            <h3>Enter your details</h3>
-            <form onSubmit={handleFormSubmit}>
-              <input
-                type="text"
-                placeholder="Your Name"
-                value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
-                required
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                value={customerEmail}
-                onChange={(e) => setCustomerEmail(e.target.value)}
-                required
-              />
-              <button type="submit" className="btn btn-success">Submit & Place Order</button>
-
-            </form>
-            
-          </div>
-        </div>
-      )}
+   
     </Fragment>
   );
 };

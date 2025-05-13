@@ -11,6 +11,8 @@ import adminRoutes from './routes/admin.js';
 import feedbackRoute from "./routes/feedback.js"; // Assuming you are using ES modules
 import contactRoutes from './routes/contact.js';  // Import the contact routes
 
+import paymentRoutes from  './routes/paymentRoutes.js';
+
 // Initialize dotenv for environment variables
 dotenv.config({ path: path.join(process.cwd(), 'config', 'config.env') });
 
@@ -35,6 +37,8 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/contact", contactRoutes);
 
 app.use("/api/feedback", feedbackRoute);
+
+app.use('/api/payments', paymentRoutes);
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
