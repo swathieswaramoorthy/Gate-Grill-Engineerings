@@ -28,11 +28,19 @@ function Login() {
 
             if (response.ok) {
                 alert(data.message || "Login successful!");
-                const user = data.user; // Extract the entire user object
+                const role = data.user?.role; // Extract role
 
-                // Store user data in localStorage or in React state
-                localStorage.setItem("user", JSON.stringify(user)); // Store user info in localStorage
-                navigate("/profile"); // Navigate to the profile page after login
+                // Optional: store token or user info
+                // localStorage.setItem("user", JSON.stringify(data.user));
+
+                if (role === "admin") {
+                    navigate("/admin/dashboard");
+                } else if (role === "user") {
+                    navigate("/user/dashboard");
+                } else {
+                    alert("Unknown user role. Contact admin.");
+                }
+
             } else {
                 alert(data.message || "Login failed.");
             }
