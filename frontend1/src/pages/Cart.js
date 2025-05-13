@@ -32,43 +32,41 @@ const Cart = ({ cartItems, setCartItems }) => {
   };
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      // Send each cart item as a separate order
-      const orderPromises = cartItems.map(item => {
-        return fetch(`${process.env.REACT_APP_API_URL}/order`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            productName: item.product.name,
-            quantity: item.qty,
-            customerName,
-            customerEmail
-          })
-        });
-      });
+  try {
+    const items = cartItems.map(item => ({
+      productName: item.product.name,
+      quantity: item.qty
+    }));
 
-      const responses = await Promise.all(orderPromises);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/order`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        items,
+        customerName,
+        customerEmail
+      })
+    });
 
-      if (responses.some(res => !res.ok)) {
-        throw new Error("Some orders failed");
-      }
+    const data = await response.json();
 
-      const data = await Promise.all(responses.map(res => res.json()));
+    if (!response.ok) throw new Error(data.message || "Failed to place order");
 
-      setOrderData(data); // Store full data
-      setCartItems([]);
-      setComplete(true);
-      setShowForm(false);
-      toast.success("Order placed successfully!");
-    } catch (error) {
-      console.error("Error placing order:", error);
-      toast.error("Failed to place order");
-    }
-  };
+    setOrderData(data);
+    setCartItems([]);
+    setComplete(true);
+    setShowForm(false);
+    toast.success("Order placed successfully!");
+  } catch (error) {
+    console.error("Error placing order:", error);
+    toast.error("Failed to place order");
+  }
+};
+
 
   const placeOrderHandler = () => {
     setShowForm(true); // Show the form before placing order

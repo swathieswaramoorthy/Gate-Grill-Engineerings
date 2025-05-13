@@ -2,15 +2,14 @@ import Order from "../models/orderModel.js";
 
 export const createOrder = async (req, res) => {
   try {
-    const { productName, quantity, customerName, customerEmail } = req.body;
+    const { items, customerName, customerEmail } = req.body;
 
-    if (!productName || !quantity || !customerName || !customerEmail) {
+    if (!items || !Array.isArray(items) || items.length === 0 || !customerName || !customerEmail) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
     const order = await Order.create({
-      productName,
-      quantity,
+      items,
       customerName,
       customerEmail
     });
