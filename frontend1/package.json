@@ -14,6 +14,7 @@
     "axios": "^1.8.4",
     "bootstrap": "^5.3.6",
     "framer-motion": "^6.5.1",
+    "frontend1": "file:",
     "qrcode.react": "^4.2.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.10",
