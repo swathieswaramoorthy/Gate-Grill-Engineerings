@@ -31,9 +31,11 @@ const Payment = () => {
                 handler: async function (response) {
                     // Extract necessary data from the Razorpay response
                     const paymentData = {
-                        razorpay_payment_id: response.razorpay_payment_id,
-                        razorpay_order_id: response.razorpay_order_id,
-                        razorpay_signature: response.razorpay_signature,
+                        //dummy data for testing
+                        razorpay_payment_id: "pay_FhcJ2bpZG5tA4R",
+                        razorpay_order_id: "order_F6gKYZgG7F67tZ", 
+                        razorpay_signature: "2c85fdb7586cb2746f55aeb7798f8e4a897b4dbbd12c8d993b319244f0edba9d",
+
                         amount: amount,
                         name: name,
                         email: email,
