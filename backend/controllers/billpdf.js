@@ -6,7 +6,7 @@ const generateBill = (paymentData, recipientEmail) => {
     const { amount, name, email, contact, address, razorpay_payment_id, razorpay_order_id } = paymentData;
 
 
-      // ✅ Make sure the 'bills' folder exists
+    // ✅ Make sure the 'bills' folder exists
     if (!fs.existsSync('./bills')) {
         fs.mkdirSync('./bills');
     }
@@ -18,17 +18,43 @@ const generateBill = (paymentData, recipientEmail) => {
     doc.pipe(fs.createWriteStream(filePath));
 
     // Add bill content
-    doc.fontSize(20).text('Invoice', { align: 'center' });
-    doc.moveDown();
+    doc.font('Helvetica-Bold').fontSize(20).fillColor('#0c2461').text('Shri Balaji Engineering', { align: 'center' });
+    doc.moveDown(1);
+
     
-    doc.fontSize(12).text(`Order ID: ${razorpay_order_id}`);
+    doc.fontSize(24).fillColor('#0a3d62').text('Invoice', { align: 'center' });
+    doc.moveDown(1);
+
+    // Order Details
+    doc.fontSize(14).fillColor('#130f40').text(`Order ID: ${razorpay_order_id}`);
     doc.text(`Payment ID: ${razorpay_payment_id}`);
-    doc.text(`Name: ${name}`);
+    doc.moveDown();
+
+    // Customer Info
+    doc.font('Helvetica-Bold').text('Customer Details:', { underline: true });
+    doc.font('Helvetica').fillColor('#444').text(`Name: ${name}`);
     doc.text(`Email: ${email}`);
     doc.text(`Phone: ${contact}`);
     doc.text(`Address: ${address}`);
     doc.text(`Amount: ₹${amount}`);
-    
+    doc.moveDown();
+
+    // Amount
+    doc.font('Helvetica-Bold').fontSize(16).fillColor('#e84118').text(`Total Paid: ₹${amount}`);
+    doc.moveDown(2);
+
+    // Bottom footer
+    doc.fontSize(12).fillColor('#009432').text('Thank you for your order!', { align: 'center' });
+
+
+    // doc.fontSize(12).text(`Order ID: ${razorpay_order_id}`);
+    // doc.text(`Payment ID: ${razorpay_payment_id}`);
+    // doc.text(`Name: ${name}`);
+    // doc.text(`Email: ${email}`);
+    // doc.text(`Phone: ${contact}`);
+    // doc.text(`Address: ${address}`);
+    // doc.text(`Amount: ₹${amount}`);
+
     // Finalize the PDF file
     doc.end();
 

@@ -32,6 +32,7 @@ console.log("Received Signature:", razorpay_signature);
         });
 
         await newPayment.save();
+        console.log(email);
         const filePath = generateBill(paymentData, email);
         console.log("📄 Bill generated at:", filePath);
         return { success: true, message: 'Payment verified and saved to database' };
