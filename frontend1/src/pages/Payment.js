@@ -22,8 +22,8 @@ const Payment = () => {
         }
         else {
             var options = {
-                key: "rzp_test_QCZLQtT2M48OsW",
-                key_secret: "5KHpjPDi0Zx70TmLMnySPUoK",
+                key: process.env.REACT_APP_RAZORPAY_KEY,
+                key_secret: process.env.REACT_APP_RAZORPAY_SECRET,
                 amount: amount * 100, // Amount is in currency subunits. Default currency is INR. Hence, 100 = 1 INR
                 currency: "INR",
                 name: "Shri Balaji Engineerings",
