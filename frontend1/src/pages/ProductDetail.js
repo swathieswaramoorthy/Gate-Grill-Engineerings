@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Link } from 'react-router-dom'
+
 
 
 export default function ProductDetail({ cartItems, setCartItems }) {
@@ -11,7 +11,7 @@ export default function ProductDetail({ cartItems, setCartItems }) {
   const navigate = useNavigate(); // Hook for navigation
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_URL + "/product/" + id)
+    fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/product/" + id)
       .then((res) => res.json())
       .then((res) => setProduct(res.product));
   }, [id]);

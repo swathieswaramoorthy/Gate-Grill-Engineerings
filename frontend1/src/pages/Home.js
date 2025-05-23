@@ -1,27 +1,28 @@
 import React, { Fragment, useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import "./Home.css";
 import { toast } from "react-toastify";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const [showModal, setShowModal] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [textContent, setTextContent] = useState("");
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_URL + "/products?" + searchParams)
+    fetch(process.env.REACT_APP_BACKEND_URL + "/api/v1/products?" + searchParams)
       .then((res) => res.json())
       .then((res) => setProducts(res.products));
   }, [searchParams]);
 
-  const handleExit = () => {
+ /* const handleExit = () => {
     navigate("/");
-  };
+  };*/
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -39,7 +40,7 @@ export default function Home() {
     formData.append("description", textContent);
   
     try {
-      const response = await fetch("http://localhost:8000/custom-designs", {
+      const response = await fetch(`${backendUrl}/api/v1/custom-designs`, {
         method: "POST",
         body: formData,
       })

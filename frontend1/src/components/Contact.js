@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Contact.css";
 
+
 const ContactPage = () => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,7 +21,7 @@ const ContactPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    fetch("http://localhost:8000/api/contact", {
+    fetch(`${backendUrl}/api/contact`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

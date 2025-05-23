@@ -10,6 +10,7 @@ const Payment = () => {
     const [address, setAddress] = useState('');
 
     const handlePayment = (e) => {
+         const backendUrl = process.env.REACT_APP_BACKEND_URL;
         e.preventDefault();
         if (amount === '' || name === '' || email === '' || contact === '' || address === '') {
             alert("Please fill in all the details.");
@@ -45,7 +46,7 @@ const Payment = () => {
 
                     // Send the payment data to the backend to verify
                     try {
-                        const res = await fetch('http://localhost:8000/api/payments/verify-payment', {
+                        const res = await fetch(`${backendUrl}/api/v1/payments/verify-payment`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

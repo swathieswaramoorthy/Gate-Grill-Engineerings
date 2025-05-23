@@ -4,9 +4,10 @@ import ProductCard from '../components/ProductCard';
 export default function Steps() {
   const [products, setProducts] = useState([]);
   const keyword = 'grills';
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/products?keyword=${keyword}`)
+    fetch(`${backendUrl}/api/v1/products?keyword=${keyword}`)
       .then(res => res.json())
       .then(data => setProducts(data.products || []));
   }, []);

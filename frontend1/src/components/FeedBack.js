@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./FeedBack.css";
 
 const FeedbackPage = () => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -21,7 +22,7 @@ const FeedbackPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    fetch("http://localhost:8000/api/feedback", {
+    fetch(`${backendUrl}/api/feedback`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

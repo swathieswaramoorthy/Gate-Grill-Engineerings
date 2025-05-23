@@ -10,6 +10,7 @@ function Signup() {
 
     const handleSignup = async (e) => {
         e.preventDefault();
+          const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
         if (!username || !email || !password) {
             alert("Please fill in all fields.");
@@ -17,7 +18,7 @@ function Signup() {
         }
 
         try {
-            const response = await fetch("http://localhost:8000/api/v1/auth/signup", {
+            const response = await fetch(`${backendUrl}/api/v1/auth/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

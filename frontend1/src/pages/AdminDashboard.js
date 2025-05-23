@@ -8,6 +8,8 @@ const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState("orders");
   const [data, setData] = useState([]);
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   useEffect(() => {
     fetchSectionData(activeSection);
   }, [activeSection]);
@@ -15,7 +17,7 @@ const AdminDashboard = () => {
   const fetchSectionData = async (section) => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/admin/${section}`
+        `${backendUrl}/api/admin/${section}`
       );
       setData(response.data);
     } catch (err) {
@@ -50,7 +52,7 @@ const handleAddProduct = async (e) => {
   formData.append("image", imageFile);
 
   try {
-    await axios.post("http://localhost:8000/api/admin/add-product", formData);
+    await axios.post(`${backendUrl}/api/admin/add-product`, formData);
     alert("Product added!");
     setForm({
       name: "",

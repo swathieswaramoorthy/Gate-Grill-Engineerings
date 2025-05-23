@@ -8,7 +8,7 @@ export default function Steps() {
   const keywords = ['steps', 'staircase']; // Keywords to filter by
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/products`)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/products`)
       .then(res => res.json())
       .then(data => {
         const allProducts = data.products || [];

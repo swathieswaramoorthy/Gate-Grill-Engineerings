@@ -8,7 +8,7 @@ export default function Shed() {
   const keyword = 'shed'; // hardcoded keyword for Shed page
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/products?keyword=${keyword}`)
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/api/v1/products?keyword=${keyword}`)
       .then((res) => res.json())
       .then((data) => {
         setProducts(data.products || []);

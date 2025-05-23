@@ -7,7 +7,7 @@ import "./LandingPage.css";
 const LandingPage = () => {
   const navigate = useNavigate();
   //const [menuOpen, setMenuOpen] = useState(false); // Menu toggle
-
+   
   return (
     <>
       {/* Hamburger Menu
